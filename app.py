@@ -34,6 +34,12 @@ def generate_recipe(ingredientes):
             system_instruction=SYSTEM_INSTRUCTION,
             response_mime_type="application/json", # Força a saída em formato JSON
             response_schema=RECEITA_SCHEMA,       # Segue o esquema do config.py
+            safety_settings=[
+                types.SafetySetting(
+                    category=types.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                    threshold=types.HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
+                ),
+            ]
         )
     )
     return response.text
